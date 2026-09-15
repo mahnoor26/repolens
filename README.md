@@ -4,45 +4,61 @@
 
 RepoLens is a local React/TypeScript repository auditor. It combines AST checks, module dependency analysis, and project/company policy to produce actionable findings in the terminal, JSON, and a standalone HTML report.
 
-**Status:** V1 implementation, version `0.1.3`. This repository is ready for local use and packaging. It has not been published to npm or GitHub. The npm name is a placeholder until availability and ownership are confirmed. License remains undecided (`UNLICENSED`), as specified in the brief.
+**Status:** Published on npm as [`@mahnoor-munir/repolens`](https://www.npmjs.com/package/@mahnoor-munir/repolens). Requires Node.js 20 or later and npm.
 
-## Quick start
+## Install and use
 
-Requires Node.js 20 or later and npm.
+From the root folder of your React or TypeScript project, run RepoLens once without installing it permanently:
 
 ```powershell
-cd D:\RepoLens
-npm ci
-npm test
-npm run demo
+npx @mahnoor-munir/repolens . --html repolens-report.html
 ```
 
-Open `demo-report.html` in a browser. The demo deliberately contains violations; its source is a scan fixture, not a runnable React app. `examples/clean` demonstrates a passing repository.
+This creates `repolens-report.html` in your current project folder. Open that file in a browser to view the full report.
 
-### Audit your repository
+### Install it in a project
+
+Install RepoLens as a development dependency if you plan to use it regularly or in CI:
 
 ```powershell
-node D:\RepoLens\dist\cli.js D:\path\to\your-react-app --verbose
-node D:\RepoLens\dist\cli.js D:\path\to\your-react-app --json
-node D:\RepoLens\dist\cli.js D:\path\to\your-react-app --html report.html
+npm install --save-dev @mahnoor-munir/repolens
 ```
 
-### Create your project's rules file
+Then run it from the same project folder:
 
 ```powershell
-npx --no-install repolens . --init
+npx repolens . --html repolens-report.html
+```
+
+### Common commands
+
+```powershell
+# Show the terminal report
+npx repolens .
+
+# Create an editable rules file for this project
+npx repolens . --init
+
+# Show every built-in rule and its explanation
+npx repolens . --list-rules
+
+# Save findings as JSON for CI or other tools
+npx repolens . --json > repolens-report.json
+
+# Create a standalone HTML report
+npx repolens . --html repolens-report.html
+
+# Include detailed explanations and policy evidence
+npx repolens . --verbose
+```
+
+### Customize your project's rules
+
+```powershell
+npx repolens . --init
 ```
 
 This creates a heavily commented `.repolens.yml` in the project. Open it in any editor and change `enabled`, `severity`, and `limit` values. RepoLens will never overwrite an existing rules file.
-
-For a local `repolens` command:
-
-```sh
-npm link
-repolens ./your-app --html report.html
-```
-
-Do not use bare `npx repolens` to try this unpublished implementation: that could fetch an unrelated package. To test the actual distributable, run `npm pack` and install the resulting local `.tgz` in a disposable directory.
 
 ## What V1 includes
 
