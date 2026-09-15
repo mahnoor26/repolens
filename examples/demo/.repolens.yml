@@ -1,0 +1,23 @@
+project:
+  framework: react
+  language: typescript
+standards:
+  paths:
+    - BEST_PRACTICES.md
+rules:
+  no-any:
+    severity: high
+  no-api-in-components:
+    severity: high
+  component-max-lines:
+    limit: 250
+architecture:
+  apiDirectories: [src/services]
+  componentDirectories: [src/components]
+  hookDirectories: [src/hooks]
+  forbiddenImports:
+    - from: src/services
+      to: src/components
+ignore:
+  - generated/
+failOn: none

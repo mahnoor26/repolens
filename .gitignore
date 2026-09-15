@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.tgz
+demo-report.html
+repolens-report.html
+coverage/
+.npm-cache/
+test-results/
+work/
